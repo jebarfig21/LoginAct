@@ -5,7 +5,7 @@ import android.app.Activity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.media.Image;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -20,14 +20,11 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.loginact.R;
-import com.example.loginact.ui.login.LoginViewModel;
-import com.example.loginact.ui.login.LoginViewModelFactory;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -165,8 +162,10 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
 
-                Toast.makeText(getApplicationContext(),"Response :" + response.toString(), Toast.LENGTH_LONG).show();//display the response on screen
-
+                //Toast.makeText(getApplicationContext(),"Response :" + response.toString(), Toast.LENGTH_LONG).show();//display the response on screen
+                Intent intent = new Intent(getApplicationContext(),ScrollingActivity.class);
+                intent.putExtra(EXTRA_MESSAGE, response.toString());
+                startActivity(intent);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -178,4 +177,16 @@ public class LoginActivity extends AppCompatActivity {
 
         mRequestQueue.add(mStringRequest);
     }
+
+    public static final String EXTRA_MESSAGE = "com.example.loginact.ui.login.MESSAGE";
+    /*
+    public void sendMessage(View view) {
+        Intent intent = new Intent(this, ScrollingActivity.class);
+        //EditText editText = (EditText) findViewById(R.id.editText);
+        //String message = editText.getText().toString();
+        intent.putExtra(EXTRA_MESSAGE, url);
+        startActivity(intent);
+    }*/
+
+
 }
