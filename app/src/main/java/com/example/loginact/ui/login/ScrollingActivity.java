@@ -1,5 +1,6 @@
 package com.example.loginact.ui.login;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,25 +12,73 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class ScrollingActivity extends AppCompatActivity {
-
+    private ListView listView;
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scrolling);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         // Get the Intent that started this activity and extract the string
         Intent intent = getIntent();
         String message = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
 
-        // Capture the layout's TextView and set the string as its text
-        TextView textView = findViewById(R.id.requestMsg);
-        textView.setText(message);
+        //Pasamos el mensaje a una list de mensajes
+        ArrayList<String> listaMensaje = new ArrayList<String>();
+        String[] arrayMensaje = message.split(" ");
+        for (int x=0; x<arrayMensaje.length; x++) {
+            listaMensaje.add(arrayMensaje[x]);
+        }
 
+        //Mensajes Aleorios para probar el scrolling Activity
+        listaMensaje.add("Vicente Fernandez");
+        listaMensaje.add("Hugo Boss");
+        listaMensaje.add("Bad Bunny");
+        listaMensaje.add("Los Tigres del Norte");
+        listaMensaje.add("Los cadetes de Linares");
+        listaMensaje.add("Leo Messi");
+        listaMensaje.add("Rivaldo");
+        listaMensaje.add("Guillermo Ochoa");
+        listaMensaje.add("Patrick Mahomes");
+        listaMensaje.add("Michael Jordan");
+        listaMensaje.add("Metallica");
+        listaMensaje.add("Larry Bird");
+        listaMensaje.remove(0);
+
+
+
+
+        // Capture the layout's TextView and set the string as its text
+        //TextView textView = findViewById(R.id.requestMsg);
+        //textView.setText(message);
+
+        listView = (ListView)findViewById(R.id.simpleListView);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                this,
+                R.layout.activity_listview,
+                R.id.textView,
+                listaMensaje );
+
+        listView.setAdapter(arrayAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                String selectedFromList = listView.getItemAtPosition(position).toString().trim();
+                Toast.makeText(getApplicationContext(),selectedFromList, Toast.LENGTH_LONG).show();
+            }
+        });
+        //
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
