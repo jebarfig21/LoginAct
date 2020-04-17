@@ -2,6 +2,7 @@ package com.example.loginact.ui.login;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.loginact.R;
@@ -40,23 +41,7 @@ public class ScrollingActivity extends AppCompatActivity {
             listaMensaje.add(arrayMensaje[x]);
         }
 
-        //Mensajes Aleorios para probar el scrolling Activity
-        listaMensaje.add("Vicente Fernandez");
-        listaMensaje.add("Hugo Boss");
-        listaMensaje.add("Bad Bunny");
-        listaMensaje.add("Los Tigres del Norte");
-        listaMensaje.add("Los cadetes de Linares");
-        listaMensaje.add("Leo Messi");
-        listaMensaje.add("Rivaldo");
-        listaMensaje.add("Guillermo Ochoa");
-        listaMensaje.add("Patrick Mahomes");
-        listaMensaje.add("Michael Jordan");
-        listaMensaje.add("Metallica");
-        listaMensaje.add("Larry Bird");
         listaMensaje.remove(0);
-
-
-
 
         // Capture the layout's TextView and set the string as its text
         //TextView textView = findViewById(R.id.requestMsg);
@@ -76,6 +61,11 @@ public class ScrollingActivity extends AppCompatActivity {
                                     int position, long id) {
                 String selectedFromList = listView.getItemAtPosition(position).toString().trim();
                 Toast.makeText(getApplicationContext(),selectedFromList, Toast.LENGTH_LONG).show();
+                Uri selectedFromListURI = Uri.parse(selectedFromList);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, selectedFromListURI);
+                //mapIntent.setPackage("com.google.android.apps.maps");
+                // Attempt to start an activity that can handle the Intent
+                startActivity(mapIntent);
             }
         });
         //
