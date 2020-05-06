@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 public class ScrollingActivity extends AppCompatActivity {
     private ListView listView;
+    public static final String EXTRA_MESSAGE = "com.example.loginact.ui.login.MESSAGE";
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +70,12 @@ public class ScrollingActivity extends AppCompatActivity {
             }
         });
         //
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabTimer);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(getApplicationContext(),Ejercicios.class);
+                startActivity(intent);
             }
         });
     }
